@@ -185,6 +185,7 @@ function App() {
       {<ChatMessages messages={messages} Mode={Mode} />}
 
       {/* Footer */}
+
 <footer className={`backdrop-blur-lg p-4 z-10 border-t sticky bottom-0 ${Mode
   ? "bg-gray-900/80 border-gray-700 shadow-xl"
   : "bg-white/80 border-gray-200 shadow-sm"}`}>
@@ -212,7 +213,7 @@ function App() {
           rows={1}
         />
       </div>
-      <div className='absolute right-1 bottom-1'>
+      <div className='absolute right-1 bottom-[7.4px]'>
         <button
           type='submit'
           className="bg-blue-500 h-10 w-10 hover:bg-blue-600 text-white rounded-full flex items-center justify-center"
