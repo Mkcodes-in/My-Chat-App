@@ -1,23 +1,23 @@
-const API_Key = 'sk-sLspU2DAuHwc3j3AQJgOepuvfuutEwf3rVxIx8QjiqXYfZLc';
+// src/components/ApiHandling.jsx
 
 export async function AiResponseHandling(userMessage) {
   try {
-    const res = await fetch('https://api.chatanywhere.com.cn/v1/chat/completions', {
-      method: 'POST',
+    const response = await fetch("/.netlify/functions/aiResponse", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_Key}`,
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: userMessage }]
-      }),
+      body: JSON.stringify({ message: userMessage })
     });
 
-    const data = await res.json();
-    return data?.choices?.[0]?.message?.content || 'No response from assistant';
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.reply || "❌ I couldn't generate a response. Please try again.";
   } catch (error) {
-    console.error('API Error:', error);
-    return 'Error contacting API';
+    console.error("API Error:", error);
+    return `❌ Sorry, I encountered an error: ${error.message}`;
   }
 }
